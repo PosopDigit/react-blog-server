@@ -16,24 +16,24 @@ connectToDb((err) => {
     }
 })
 
-app.get('/books', (req, res) => {
-    let books = []
-    db.collection('books')
+app.get('/Post', (req, res) => {
+    let Posts = []
+    db.collection('Post')
     .find()
     .sort()
-    .forEach(book => books.push(book))
+    .forEach(Post => Posts.push(Post))
     .then(() => {
-        res.status(200).json(books)
+        res.status(200).json(Posts)
     })
     .catch(() =>{
         res.status(500).json({error: 'Не читает документ' })
     })
 })
 
-app.get('/books/:id', (req, res) => {
+app.get('/Post/:id', (req, res) => {
 
     if(ObjectId.isValid(req.params.id)) {
-        db.collection('books')
+        db.collection('Post')
         .findOne({_id: ObjectId(req.params.id)})
         .then(doc => {
             res.status(200).json(doc)
